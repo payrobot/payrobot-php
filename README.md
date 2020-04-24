@@ -130,12 +130,12 @@ $apiInstance = new Payrobot\Api\PaymentApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$currency = 'currency_example'; // string | Object Currency:   * `btc`: Bitcoin   * `ltc`: Litecoin   * `bch`: Bitcoin Cash
+$currency = 'ltc'; // string | Object Currency:   * `btc`: Bitcoin   * `ltc`: Litecoin   * `bch`: Bitcoin Cash
 $type = 0; // int | * `0: Receive and forward` payment is forwarded to a desired coin address once it's confirmed  * `1: Receive and store` payment is stored in a payrobot.io wallet
-$destination = 'destination_example'; // string | * For `Receive and forward` payment is the `ADDRESS` where the payment is going to be forwarded as soon as it's confirmed. **ADDRESS HAVE TO BE OF THE SAME TYPE OF CURRENCY**  * For `Receive and store` payment is the payrobot.io `WALLET ID` where the payment is going to be stored as soon as it's confirmed. **WALLET HAVE TO BE OF THE SAME TYPE OF CURRENCY**
-$amount = 3.4; // float | Amount of the payment
-$callback = 'callback_example'; // string | Your URL where payrobot.io will send the status of the payment (Webhook)
-$reference = 'reference_example'; // string | Optional custom reference to identify the payment
+$destination = 'ltc1q3rlcaeu9lpydseuvmrtnvjy2wwm7mv48qsn0nj'; // string | * For `Receive and forward` payment is the `ADDRESS` where the payment is going to be forwarded as soon as it's confirmed. **ADDRESS HAVE TO BE OF THE SAME TYPE OF CURRENCY**  * For `Receive and store` payment is the payrobot.io `WALLET ID` where the payment is going to be stored as soon as it's confirmed. **WALLET HAVE TO BE OF THE SAME TYPE OF CURRENCY**
+$amount = 1.21; // float | Amount of the payment
+$callback = 'https://callback-url.com'; // string | Your URL where payrobot.io will send the status of the payment (Webhook)
+$reference = 'Bill12345'; // string | Optional custom reference to identify the payment
 
 try {
     $result = $apiInstance->createPayment($currency, $type, $destination, $amount, $callback, $reference);
