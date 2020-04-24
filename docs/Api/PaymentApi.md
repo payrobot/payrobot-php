@@ -13,9 +13,53 @@ Method | HTTP request | Description
 
 > \Payrobot\Model\PaymentRequest createPayment($currency, $type, $destination, $amount, $callback, $reference)
 
-Generate a new one-use address to receive a payment
+Generates a new one-use address to receive a payment. It callbacks your web/app server as soon as it's paid and confirmed.
 
-Generates a new one-use address to receive a payment. It callbacks your web/app server as soon as it's paid and confirmed.  **Payment can be `forwarded` to another address or it can be `stored` in a payrobot.io wallet**     --- ## Important    * Unpaid requests are deleted after **3 hours** of theirs creation   * Confirmed payments information is deleted after **3 days** of being confirmed    --- ## Minimum Amounts     * `Bitcoin`: 0.0001 BTC   * `Litecoin`: 0.001 LTC   * `Bitcoin Cash`: 0.001 BCH    --- ## Callbacks A **payment notificacion** will be sent to your callback url in the following scenarios:    1. *Payment is received partially*   2. *Payment is being confirmed by network*   3. *Payment is confirmed at least with 1 confirmation*   The callback sent to your callback url is a **POST** request with the following parameters:  *Example:*      currency:         \"BTC\"     paymentId:        \"698fd3f6-5482-4798-8a46-6732af440616\"     address:          \"3KoUDMfrov91G4SXaCKGvTWDjGia9Jod5b\"     type:             0     partialAmount:    \"0.00\"                       //Partial amount received when payment is incomplete     remainingAmount:  \"0.00\"                       //Remaining amount to pay when payment is incomplete     amount:           \"0.1\"     feePct:           0.90     feeAmount:        \"0.0009\"     finalAmount:      \"0.0991\"     destination:      \"698fd3f6-5482-4798-8a46-6732af440616\"     reference:        \"12345\"     status:           2
+**Payment can be `forwarded` to another address or it can be `stored` in a payrobot.io wallet**
+
+
+---
+## Important
+
+  * Unpaid requests are deleted after **3 hours** of theirs creation
+  * Confirmed payments information is deleted after **3 days** of being confirmed
+
+---
+## Minimum Amounts
+
+
+  * `Bitcoin`: 0.0001 BTC
+  * `Litecoin`: 0.001 LTC
+  * `Bitcoin Cash`: 0.001 BCH
+
+---
+## Callbacks
+A **payment notificacion** will be sent to your callback url in the following scenarios:
+
+  1. *Payment is received partially*
+  2. *Payment is being confirmed by network*
+  3. *Payment is confirmed at least with 1 confirmation*
+
+
+The callback sent to your callback url is a **POST** request with the following parameters:
+
+*Example:*
+
+    currency:         "BTC"
+    paymentId:        "698fd3f6-5482-4798-8a46-6732af440616"
+    address:          "3KoUDMfrov91G4SXaCKGvTWDjGia9Jod5b"
+    type:             0
+    partialAmount:    "0.00"
+                      //Partial amount received when payment is incomplete
+    remainingAmount:  "0.00"
+                      //Remaining amount to pay when payment is incomplete
+    amount:           "0.1"
+    feePct:           0.90
+    feeAmount:        "0.0009"
+    finalAmount:      "0.0991"
+    destination:      "698fd3f6-5482-4798-8a46-6732af440616"
+    reference:        "12345"
+    status:           2
 
 ### Example
 
@@ -29,12 +73,12 @@ $apiInstance = new Payrobot\Api\PaymentApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$currency = 'currency_example'; // string | Object Currency:   * `btc`: Bitcoin   * `ltc`: Litecoin   * `bch`: Bitcoin Cash
-$type = 56; // int | * `0: Receive and forward` payment is forwarded to a desired coin address once it's confirmed  * `1: Receive and store` payment is stored in a payrobot.io wallet
-$destination = 'destination_example'; // string | * For `Receive and forward` payment is the `ADDRESS` where the payment is going to be forwarded as soon as it's confirmed. **ADDRESS HAVE TO BE OF THE SAME TYPE OF CURRENCY**  * For `Receive and store` payment is the payrobot.io `WALLET ID` where the payment is going to be stored as soon as it's confirmed. **WALLET HAVE TO BE OF THE SAME TYPE OF CURRENCY**
+$currency = 'ltc'; // string | Object Currency:   * `btc`: Bitcoin   * `ltc`: Litecoin   * `bch`: Bitcoin Cash
+$type = 0; // int | * `0: Receive and forward` payment is forwarded to a desired coin address once it's confirmed  * `1: Receive and store` payment is stored in a payrobot.io wallet
+$destination = 'ltc1q5zwsf58jxr3d0rnp5nlq6xjeath2gvptwpu92r'; // string | * For `Receive and forward` payment is the `ADDRESS` where the payment is going to be forwarded as soon as it's confirmed. **ADDRESS HAVE TO BE OF THE SAME TYPE OF CURRENCY**  * For `Receive and store` payment is the payrobot.io `WALLET ID` where the payment is going to be stored as soon as it's confirmed. **WALLET HAVE TO BE OF THE SAME TYPE OF CURRENCY**
 $amount = 3.4; // float | Amount of the payment
-$callback = 'callback_example'; // string | Your URL where payrobot.io will send the status of the payment (Webhook)
-$reference = 'reference_example'; // string | Optional custom reference to identify the payment
+$callback = 'https://callback-url.com'; // string | Your URL where payrobot.io will send the status of the payment (Webhook)
+$reference = 'Bill12345'; // string | Optional custom reference to identify the payment
 
 try {
     $result = $apiInstance->createPayment($currency, $type, $destination, $amount, $callback, $reference);
@@ -81,8 +125,6 @@ No authorization required
 
 Get detailed information about a payment
 
-Gets detailed information about a payment
-
 ### Example
 
 ```php
@@ -95,8 +137,8 @@ $apiInstance = new Payrobot\Api\PaymentApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$currency = 'currency_example'; // string | Object Currency:   * `btc`: Bitcoin   * `ltc`: Litecoin   * `bch`: Bitcoin Cash
-$paymentId = 698fd3f6-5482-4798-8a46-6732af440616; // string | Payment ID to query
+$currency = 'btc'; // string | Object Currency:   * `btc`: Bitcoin   * `ltc`: Litecoin   * `bch`: Bitcoin Cash
+$paymentId = '698fd3f6-5482-4798-8a46-6732af440616'; // string | Payment ID to query
 
 try {
     $result = $apiInstance->getPayment($currency, $paymentId);
