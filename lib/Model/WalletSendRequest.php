@@ -251,7 +251,7 @@ class WalletSendRequest implements ModelInterface, ArrayAccess
         $this->container['callback'] = isset($data['callback']) ? $data['callback'] : null;
         $this->container['destination'] = isset($data['destination']) ? $data['destination'] : null;
         $this->container['txid'] = isset($data['txid']) ? $data['txid'] : null;
-        $this->container['status'] = isset($data['status']) ? $data['status'] : STATUS_0;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : 0;
         $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
